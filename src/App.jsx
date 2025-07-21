@@ -155,7 +155,7 @@ function App() {
     }
   };
 
-  const handleGet = async (isAfterSet = false) => {
+ const handleGet = async (isAfterSet = false) => {
     if (getLoading) return;
     try {
       if (!isAfterSet) setSuccess("");
@@ -170,12 +170,20 @@ function App() {
       const message = await contract.getMessage();
       setFetchedMessage(message);
     } catch (err) {
-      setError(err.reason || err.message || "Error fetching message.");
+      // ** ADD THIS LOGIC **
+      // Check if the error is the specific "empty data" error
+      if (err.code === 'BAD_DATA' && err.value === '0x') {
+        // This is an expected state, not a true "error".
+        // It just means the message is empty.
+        setFetchedMessage(""); // Set the message to empty string
+      } else {
+        // For all other errors, show the message
+        setError(err.reason || err.message || "Error fetching message.");
+      }
     } finally {
       setGetLoading(false);
     }
   };
-
   const dynamicBackgroundStyle = {
     background: `
       radial-gradient(circle at ${mousePos.x}px ${
