@@ -3,11 +3,8 @@ import { ethers } from "ethers";
 import abi from "./abi.json"; // Import ABI from JSON file
 import "./App.css"; // Import the CSS file
 
-const contractAddress = "0x9D1eb059977D71E1A21BdebD1F700d4A39744A70";
+const contractAddress = "0xe08734EC26A83c63318aA560F351a2c638F2adbf";
 
-// --- Custom Hooks (remain the same) ---
-
-// Hook to get window size for responsive inline styles
 const useWindowSize = () => {
   const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
   useEffect(() => {
@@ -62,7 +59,6 @@ const useCardTilt = () => {
   return { transform, spotlight, onMouseMove, onMouseLeave };
 };
 
-// --- Main App Component ---
 
 function App() {
   const [text, setText] = useState("");
